@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="demofinish/AddAgent_Window.axaml" value="demofinish/demofinish.csproj" />
+        <entry key="demofinish/App.axaml" value="demofinish/demofinish.csproj" />
+        <entry key="demofinish/EditWindow.axaml" value="demofinish/demofinish.csproj" />
+        <entry key="demofinish/MainWindow.axaml" value="demofinish/demofinish.csproj" />
+        <entry key="demofinish/Product.axaml" value="demofinish/demofinish.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="demofinish.AddAgent_Window"
+        x:CompileBindings="False"
+        Title="AddAgent_Window">
+        
+        <DockPanel>
+        <StackPanel Orientation="Vertical" Margin="5"  VerticalAlignment="Center"  DockPanel.Dock="Top">
+        
+        <TextBox Margin="5" x:Name="NameBox" Width="200" HorizontalAlignment="Center" Watermark="Наименование" />
+        <ComboBox x:Name="TypeAgentCombobox" Margin="5" Width="200" HorizontalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                                <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Margin="5" x:Name="PrioritryBox" Width="200" HorizontalAlignment="Center" Watermark="Приоритет" />
+        <TextBox Margin="5" x:Name="AdressBox" Width="200" HorizontalAlignment="Center" Watermark="Адрес" />
+        <TextBox Margin="5" x:Name="InnBox" Width="200" HorizontalAlignment="Center" Watermark="ИНН" />
+        <TextBox Margin="5" x:Name="KppBox" Width="200" HorizontalAlignment="Center" Watermark="КПП" />
+        <TextBox Margin="5" x:Name="DirectorBox" Width="200" HorizontalAlignment="Center" Watermark="Имя директора" />
+        <TextBox Margin="5" x:Name="PhoneBox" Width="200" HorizontalAlignment="Center" Watermark="Телефон" />
+        <TextBox Margin="5" x:Name="EmailBox" Width="200" HorizontalAlignment="Center" Watermark="Email" />
+        
+        </StackPanel>
+        
+        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                <Button Content="Добавить" Margin="5" Click="Add_Agent"/>
+                <Button Content="Назад" Margin="5" Click="GoBack_Button"/>
+        </StackPanel>
+        </DockPanel>
+        
+</Window>
+

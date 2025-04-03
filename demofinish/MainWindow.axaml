@@ -1,0 +1,86 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="demofinish.MainWindow"
+        x:CompileBindings="False"
+        Title="demofinish">
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text=""/>
+                <AutoCompleteBox x:Name="SearchBox" Watermark="Поиск" 
+                                 FilterMode="StartsWith" HorizontalAlignment="Center" Margin="5"
+                                 Width="200" TextChanged="SearchBox_TextChanged" 
+                                 SelectionChanged="SearchBox_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text="Тип агента"/>
+                <ComboBox  x:Name="TypeAgentCombobox" Margin="5" Width="200">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text="Сортировка приоритета"/>
+                <ComboBox MaxDropDownHeight="100" Width="200" Margin="5" x:Name="PriorityCombobox">
+                <ComboBoxItem>по убыванию</ComboBoxItem>
+                <ComboBoxItem>по возрастанию</ComboBoxItem>
+            </ComboBox>
+            </StackPanel>
+            
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Сортировка наименования"/>
+                    <ComboBox MaxDropDownHeight="100" Width="200" Margin="5" x:Name="NameComboBox">
+                <ComboBoxItem>по убыванию</ComboBoxItem>
+                <ComboBoxItem>по возрастанию</ComboBoxItem>
+            </ComboBox>
+                </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5">
+                        <TextBlock Text="Сортировка по скидке"/>
+                        <ComboBox MaxDropDownHeight="100" Width="200" Margin="5" x:Name="SaleCombobox">
+                <ComboBoxItem>по убыванию</ComboBoxItem>
+                <ComboBoxItem>по возрастанию</ComboBoxItem>
+            </ComboBox>
+                    </StackPanel>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+<StackPanel Orientation="Vertical" DockPanel.Dock="Top" >
+        <ListBox x:Name="AgentListBox" SelectionChanged="AgentListBox_OnSelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" Margin="5">
+                        <StackPanel HorizontalAlignment="Center" Spacing="5">
+                            <Image HorizontalAlignment="Center" Width="300" Height="200"
+                                   Source="{Binding LogoImage}" Margin="5"/>
+                            <TextBlock Text="{Binding Title, StringFormat='Наименование: {0}'}"/>
+                            <TextBlock Text="{Binding Phone, StringFormat='Телефон: {0}'}"/>
+                            <TextBlock Text="{Binding Agenttypeid, StringFormat='Тип агента: {0}'}"/>
+                            <TextBlock Text="{Binding Priority, StringFormat='Приоритет: {0}'}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Bottom">
+            <Button Content="Назад" Margin="5" Click="PrevPage_Click"/>
+            <TextBlock Text="{Binding currentPage}" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="{Binding pageCount}" VerticalAlignment="Center" Margin="5"/>
+            <Button Content="Вперед" Margin="5" Click="NextPage_Click"/>
+            <Button Content="Добавить агента" Margin="5" Click="AddNew_Agent" />
+        </StackPanel>
+</StackPanel>
+            </ScrollViewer>
+    </DockPanel>
+</Window>
