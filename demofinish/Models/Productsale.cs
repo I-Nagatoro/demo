@@ -16,4 +16,6 @@ public partial class Productsale
     public int Productcount { get; set; }
 
     public virtual Agent Agent { get; set; } = null!;
+    
+    public virtual Product Product { get; set; } = null!;
 }

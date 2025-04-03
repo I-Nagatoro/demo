@@ -74,6 +74,7 @@ public partial class User1Context : DbContext
                 .HasColumnName("kpp");
             entity.Property(e => e.Logo)
                 .HasMaxLength(100)
+                .HasDefaultValueSql("'picture.png'::character varying")
                 .HasColumnName("logo");
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)

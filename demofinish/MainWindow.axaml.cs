@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using demofinish.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace demofinish
 {
@@ -27,7 +28,7 @@ namespace demofinish
             TypeAgentCombobox.SelectionChanged += TypeAgentCombobox_SelectionChanged;
             NameComboBox.SelectionChanged += SortName_SelectedChanged;
             PriorityCombobox.SelectionChanged += PrioritySort_SelectedChanged;
-            
+            SaleCombobox.SelectionChanged += SaleSort_SelectedChanged;
             
             
         }
@@ -81,22 +82,22 @@ namespace demofinish
 
         public class AgentPresenter : Agent
         {
+            public string AgentTypeName { get; set; }
+            public int DiscountPercent { get; set; }
+            public decimal TotalSales { get; set; }
+
             Bitmap? LogoImage
             {
                 get
                 {
-                    
                     try
                     {
-                        string absolutepass;
-                        
-                            absolutepass = Path.Combine(AppContext.BaseDirectory, Logo);
-                            return new Bitmap(absolutepass);
-
+                        string absolutepass = Path.Combine(AppContext.BaseDirectory, Logo);
+                        return new Bitmap(absolutepass);
                     }
                     catch
                     {
-                       return null;
+                        return null;
                     }
                 }
             }
@@ -182,6 +183,25 @@ namespace demofinish
             currentPage = 1;
             ApplyPagination();
         }
+        
+        private void SaleSort_SelectedChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            switch (SaleCombobox.SelectionBoxItem)
+            {
+                case null:
+                    return;
+                case "по возрастанию":
+                    agentsList =  agentsList.OrderBy(it => it.DiscountPercent).ToList();
+                    break;
+                default:
+                    agentsList = agentsList.OrderByDescending(it => it.DiscountPercent).ToList();
+                    break;
+            }
+            
+            currentPage = 1;
+            ApplyPagination();
+        }
 
 
 
@@ -190,20 +210,35 @@ namespace demofinish
             using var context = new User1Context();
             
 
-            agentsList = context.Agents.Select(agentPresenter => new AgentPresenter
-            {
-                Id = agentPresenter.Id,
-                Title = agentPresenter.Title,
-                Agenttypeid = agentPresenter.Agenttypeid,
-                Address = agentPresenter.Address,
-                Inn = agentPresenter.Inn,
-                Kpp = agentPresenter.Kpp,
-                Directorname = agentPresenter.Directorname,
-                Phone = agentPresenter.Phone,
-                Email = agentPresenter.Email,
-                Logo = agentPresenter.Logo,
-                Priority = agentPresenter.Priority,
-            }).ToList();
+            agentsList = context.Agents
+                .Include(a => a.Agenttype)
+                .Include(a => a.Productsales)
+                .ThenInclude(ps => ps.Product)
+                .AsEnumerable()
+                .Select(agent => 
+                {
+                    decimal totalSales = agent.Productsales?.Sum(ps => 
+                        ps.Productcount * (ps.Product?.Mincostforagent ?? 0)) ?? 0;
+                
+                    return new AgentPresenter
+                    {
+                        Id = agent.Id,
+                        Title = agent.Title,
+                        Agenttypeid = agent.Agenttypeid,
+                        AgentTypeName = agent.Agenttype?.Title ?? "Неизвестный тип",
+                        Address = agent.Address,
+                        Inn = agent.Inn,
+                        Kpp = agent.Kpp,
+                        Directorname = agent.Directorname,
+                        Phone = agent.Phone,
+                        Email = agent.Email,
+                        Logo = agent.Logo,
+                        Priority = agent.Priority,
+                        TotalSales = totalSales,
+                        DiscountPercent = CalculateDiscount(totalSales) 
+                    };
+                })
+                .ToList();
             
             
             
@@ -219,7 +254,15 @@ namespace demofinish
             ApplyPagination();
         }
     
-        
+        private int CalculateDiscount(decimal totalSales)
+        {
+            if (totalSales >= 500000) return 25;
+            if (totalSales >= 150000) return 20;
+            if (totalSales >= 50000) return 10;
+            if (totalSales >= 10000) return 5;
+            return 0;
+        }    
+    
         private void ApplyPagination()
         {
             pageCount = (int)Math.Ceiling(agentsList.Count / (double)pageSize);

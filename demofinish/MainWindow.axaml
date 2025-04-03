@@ -44,7 +44,7 @@
                 </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5">
                         <TextBlock Text="Сортировка по скидке"/>
-                        <ComboBox MaxDropDownHeight="100" Width="200" Margin="5" x:Name="SaleCombobox">
+                        <ComboBox MaxDropDownHeight="100" Width="200" Margin="5" x:Name="SaleCombobox" SelectionChanged="SaleSort_SelectedChanged">
                 <ComboBoxItem>по убыванию</ComboBoxItem>
                 <ComboBoxItem>по возрастанию</ComboBoxItem>
             </ComboBox>
@@ -68,6 +68,8 @@
                             <TextBlock Text="{Binding Phone, StringFormat='Телефон: {0}'}"/>
                             <TextBlock Text="{Binding Agenttypeid, StringFormat='Тип агента: {0}'}"/>
                             <TextBlock Text="{Binding Priority, StringFormat='Приоритет: {0}'}" />
+                            <TextBlock Text="{Binding TotalSales, StringFormat='Общие продажи: {0:C}'}"/>
+                            <TextBlock Text="{Binding DiscountPercent, StringFormat='Скидка: {0}%'}"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
@@ -75,8 +77,6 @@
         </ListBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Bottom">
             <Button Content="Назад" Margin="5" Click="PrevPage_Click"/>
-            <TextBlock Text="{Binding currentPage}" VerticalAlignment="Center" Margin="5"/>
-            <TextBlock Text="{Binding pageCount}" VerticalAlignment="Center" Margin="5"/>
             <Button Content="Вперед" Margin="5" Click="NextPage_Click"/>
             <Button Content="Добавить агента" Margin="5" Click="AddNew_Agent" />
         </StackPanel>

@@ -12,8 +12,8 @@ public partial class AddAgent_Window : Window
 {
     public AddAgent_Window()
     {
-        InitializeComponent();
-        LoadAgentTypes();
+        /*InitializeComponent();
+        LoadAgentTypes();*/
     }
 
     private void LoadAgentTypes()

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using Avalonia.Media.Imaging;
-using System.IO;
 
 namespace demofinish.Models;
 
@@ -10,7 +7,7 @@ public partial class Agent
 {
     public int Id { get; set; }
 
-    public string? Title { get; set; } = null!;
+    public string Title { get; set; } = null!;
 
     public int Agenttypeid { get; set; }
 

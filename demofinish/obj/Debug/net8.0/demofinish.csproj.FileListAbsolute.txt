@@ -590,3 +590,4 @@ C:\Users\sokol\RiderProjects\demka\demofinish\obj\Debug\net8.0\refint\Avalonia\d
 C:\Users\sokol\RiderProjects\demka\demofinish\obj\Debug\net8.0\demofinish.csproj.Up2Date
 C:\Users\sokol\RiderProjects\demka\demofinish\obj\Debug\net8.0\demofinish.genruntimeconfig.cache
 C:\Users\sokol\RiderProjects\demka\demofinish\obj\Debug\net8.0\ref\demofinish.dll
+C:\Users\sokol\RiderProjects\demka\demofinish\obj\Debug\net8.0\demofinish.sourcelink.json
