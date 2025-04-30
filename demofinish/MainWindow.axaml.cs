@@ -150,14 +150,12 @@ namespace demofinish
 
         private void ResetFilters_Click(object sender, RoutedEventArgs e)
         {
-            // Сброс фильтров и сортировки
             SearchBox.Text = string.Empty;
             TypeAgentCombobox.SelectedIndex = 0;
             NameComboBox.SelectedIndex = -1;
             PriorityCombobox.SelectedIndex = -1;
             SaleCombobox.SelectedIndex = -1;
 
-            // Восстановить полный список и обновить
             agentsList = new List<AgentPresenter>(allAgentsList);
             currentPage = 1;
             ApplyPagination();

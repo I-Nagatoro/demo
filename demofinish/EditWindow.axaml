@@ -7,7 +7,6 @@
         x:CompileBindings="False"
         Title="Редактировать агента">
     <DockPanel LastChildFill="True" Margin="10">
-        <!-- Поля ввода -->
         <StackPanel DockPanel.Dock="Top" Spacing="8">
             <TextBlock Text="Наименование*"/>
             <TextBox x:Name="NameBox" />
@@ -41,12 +40,8 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-
-            <!-- Место для сообщений об ошибках -->
             <TextBlock x:Name="ErrorTextBlock" Foreground="Red" TextWrapping="Wrap"/>
         </StackPanel>
-
-        <!-- Кнопки -->
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
             <Button Content="Сохранить" Click="EditAgent_Button" />
             <Button Content="Назад" Click="BackButton" />

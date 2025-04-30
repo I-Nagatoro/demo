@@ -7,7 +7,6 @@
         x:CompileBindings="False"
         Title="Добавить агента">
     <DockPanel LastChildFill="True" Margin="10">
-        <!-- Поля ввода -->
         <StackPanel DockPanel.Dock="Top" Spacing="8">
             <TextBox x:Name="NameBox" Watermark="Наименование*" />
             <ComboBox x:Name="TypeAgentCombobox">
@@ -27,7 +26,6 @@
             <TextBlock x:Name="ErrorTextBlock" Foreground="Red" TextWrapping="Wrap" />
         </StackPanel>
 
-        <!-- Кнопки -->
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
             <Button Content="Добавить" Click="Add_Agent" />
             <Button Content="Отмена" Click="GoBack_Button" />

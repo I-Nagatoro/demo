@@ -24,10 +24,8 @@ namespace demofinish
 
         private void Add_Agent(object? sender, RoutedEventArgs e)
         {
-            // Сброс предыдущих ошибок
             ErrorTextBlock.Text = string.Empty;
 
-            // Валидация полей
             if (string.IsNullOrWhiteSpace(NameBox.Text) ||
                 TypeAgentCombobox.SelectedItem is not Agenttype selType ||
                 !int.TryParse(PriorityBox.Text, out int priority) ||
@@ -42,7 +40,6 @@ namespace demofinish
                 return;
             }
 
-            // Создание нового агента
             var newAgent = new Agent
             {
                 Title = NameBox.Text.Trim(),
@@ -57,12 +54,10 @@ namespace demofinish
                 Logo = "picture.png"
             };
 
-            // Сохранение в базу
             using var ctx = new User1Context();
             ctx.Agents.Add(newAgent);
             ctx.SaveChanges();
 
-            // Закрыть окно
             Close();
         }
 

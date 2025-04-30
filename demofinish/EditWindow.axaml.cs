@@ -45,7 +45,6 @@ namespace demofinish
         {
             ErrorTextBlock.Text = string.Empty;
 
-            // Валидация
             if (string.IsNullOrWhiteSpace(NameBox.Text) ||
                 !int.TryParse(PriorityBox.Text, out int priority) ||
                 string.IsNullOrWhiteSpace(BossNameBox.Text) ||
@@ -60,7 +59,6 @@ namespace demofinish
                 return;
             }
 
-            // Обновление модели
             _selectedAgent.Title = NameBox.Text.Trim();
             _selectedAgent.Priority = priority;
             _selectedAgent.Directorname = BossNameBox.Text.Trim();
@@ -71,7 +69,6 @@ namespace demofinish
             _selectedAgent.Address = AdressBox.Text.Trim();
             _selectedAgent.Agenttypeid = selType.Id;
 
-            // Сохранение в БД
             var dbAgent = _context.Agents.FirstOrDefault(a => a.Id == _selectedAgent.Id);
             if (dbAgent != null)
             {
