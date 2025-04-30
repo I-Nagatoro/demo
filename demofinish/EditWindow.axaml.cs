@@ -1,102 +1,94 @@
-using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
+using System.Linq;
 using demofinish.Models;
-using Avalonia.Controls.ApplicationLifetimes;
-using System;
 
-namespace demofinish;
-
-public partial class EditWindow : Window
+namespace demofinish
 {
-    private readonly MainWindow.AgentPresenter _selectedAgent;
-    private readonly User1Context _context;
-    
-    public EditWindow()
+    public partial class EditWindow : Window
     {
-        InitializeComponent();
-    }
-
-    public EditWindow(MainWindow.AgentPresenter selectedAgent) : this()
-    {
-        _selectedAgent = selectedAgent;
-        _context = new User1Context();
+        private readonly MainWindow.AgentPresenter _selectedAgent;
+        private readonly User1Context _context;
         
-        InitializeComponent();
-        LoadAgentData();
-    }
+        public EditWindow()
+        {
+            InitializeComponent();
+        }
 
-    private void LoadAgentData()
-    {
-        
-        NameBox.Text = _selectedAgent.Title;
-        AdressBox.Text = _selectedAgent.Address;
-        PhoneBox.Text = _selectedAgent.Phone;
-        EmailBox.Text = _selectedAgent.Email;
-        InnBox.Text = _selectedAgent.Inn;
-        KppBox.Text = _selectedAgent.Kpp;
-        BossNameBox.Text = _selectedAgent.Directorname;
-        PriorityBox.Text = _selectedAgent.Priority.ToString();
+        public EditWindow(MainWindow.AgentPresenter selectedAgent)
+        {
+            InitializeComponent();
+            _selectedAgent = selectedAgent;
+            _context = new User1Context();
+            LoadAgentData();
+        }
 
-        
-        var agentTypes = _context.Agenttypes.ToList();
-        AgentTypeBox.ItemsSource = agentTypes;
-        
-        
-        var currentType = agentTypes.FirstOrDefault(at => at.Id == _selectedAgent.Agenttypeid);
-        AgentTypeBox.SelectedItem = currentType;
-    }
+        private void LoadAgentData()
+        {
+            NameBox.Text = _selectedAgent.Title;
+            PriorityBox.Text = _selectedAgent.Priority.ToString();
+            BossNameBox.Text = _selectedAgent.Directorname;
+            InnBox.Text = _selectedAgent.Inn;
+            KppBox.Text = _selectedAgent.Kpp;
+            PhoneBox.Text = _selectedAgent.Phone;
+            EmailBox.Text = _selectedAgent.Email;
+            AdressBox.Text = _selectedAgent.Address;
 
-    private void BackButton(object? sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+            var types = _context.Agenttypes.ToList();
+            AgentTypeBox.ItemsSource = types;
+            AgentTypeBox.SelectedItem = types.FirstOrDefault(t => t.Id == _selectedAgent.Agenttypeid);
+        }
 
-    private async void EditAgent_Button(object? sender, RoutedEventArgs e)
-    {
-        
+        private void BackButton(object? sender, RoutedEventArgs e) => Close();
 
-            _selectedAgent.Title = NameBox.Text;
-            _selectedAgent.Address = AdressBox.Text;
-            _selectedAgent.Phone = PhoneBox.Text;
-            _selectedAgent.Email = EmailBox.Text;
-            _selectedAgent.Inn = InnBox.Text;
-            _selectedAgent.Kpp = KppBox.Text;
-            _selectedAgent.Directorname = BossNameBox.Text;
+        private void EditAgent_Button(object? sender, RoutedEventArgs e)
+        {
+            ErrorTextBlock.Text = string.Empty;
 
-            if (int.TryParse(PriorityBox.Text, out int priority))
+            // Валидация
+            if (string.IsNullOrWhiteSpace(NameBox.Text) ||
+                !int.TryParse(PriorityBox.Text, out int priority) ||
+                string.IsNullOrWhiteSpace(BossNameBox.Text) ||
+                InnBox.Text.Length != 10 || !InnBox.Text.All(char.IsDigit) ||
+                KppBox.Text.Length != 9 || !KppBox.Text.All(char.IsDigit) ||
+                string.IsNullOrWhiteSpace(PhoneBox.Text) ||
+                !EmailBox.Text.Contains('@') || !EmailBox.Text.Contains('.') ||
+                string.IsNullOrWhiteSpace(AdressBox.Text) ||
+                AgentTypeBox.SelectedItem is not Agenttype selType)
             {
-                _selectedAgent.Priority = priority;
+                ErrorTextBlock.Text = "Проверьте правильность заполнения всех полей";
+                return;
             }
 
+            // Обновление модели
+            _selectedAgent.Title = NameBox.Text.Trim();
+            _selectedAgent.Priority = priority;
+            _selectedAgent.Directorname = BossNameBox.Text.Trim();
+            _selectedAgent.Inn = InnBox.Text.Trim();
+            _selectedAgent.Kpp = KppBox.Text.Trim();
+            _selectedAgent.Phone = PhoneBox.Text.Trim();
+            _selectedAgent.Email = EmailBox.Text.Trim();
+            _selectedAgent.Address = AdressBox.Text.Trim();
+            _selectedAgent.Agenttypeid = selType.Id;
 
-
-            if (AgentTypeBox.SelectedItem is Agenttype selectedType)
-            {
-                _selectedAgent.Agenttypeid = selectedType.Id;
-            }
-
-
+            // Сохранение в БД
             var dbAgent = _context.Agents.FirstOrDefault(a => a.Id == _selectedAgent.Id);
             if (dbAgent != null)
             {
                 dbAgent.Title = _selectedAgent.Title;
-                dbAgent.Address = _selectedAgent.Address;
-                dbAgent.Phone = _selectedAgent.Phone;
-                dbAgent.Email = _selectedAgent.Email;
+                dbAgent.Priority = _selectedAgent.Priority;
+                dbAgent.Directorname = _selectedAgent.Directorname;
                 dbAgent.Inn = _selectedAgent.Inn;
                 dbAgent.Kpp = _selectedAgent.Kpp;
-                dbAgent.Directorname = _selectedAgent.Directorname;
-                dbAgent.Priority = _selectedAgent.Priority;
+                dbAgent.Phone = _selectedAgent.Phone;
+                dbAgent.Email = _selectedAgent.Email;
+                dbAgent.Address = _selectedAgent.Address;
                 dbAgent.Agenttypeid = _selectedAgent.Agenttypeid;
 
-                await _context.SaveChangesAsync();
-
-
-                Close();
+                _context.SaveChanges();
             }
+
+            Close();
+        }
     }
-    
 }

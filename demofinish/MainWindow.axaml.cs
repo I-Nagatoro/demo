@@ -13,8 +13,9 @@ namespace demofinish
 {
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Agent> agents = new ObservableCollection<Agent>();
-        public List<AgentPresenter> agentsList = new List<AgentPresenter>(); 
+        private ObservableCollection<Agent> agents = new();
+        public List<AgentPresenter> agentsList = new(); 
+        private List<AgentPresenter> allAgentsList = new();
         private const int pageSize = 10;
         private int currentPage = 1;
         private int pageCount = 0;
@@ -121,30 +122,45 @@ namespace demofinish
 
         private void TypeAgentCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using var context = new User1Context();
-    
-            string selectedType = TypeAgentCombobox.SelectedItem.ToString();
-            if (TypeAgentCombobox.SelectedItem == null) 
+            if (TypeAgentCombobox.SelectedItem == null)
                 return;
 
-            if (TypeAgentCombobox.SelectedItem is string && (string)TypeAgentCombobox.SelectedItem == "Все типы")
+            string selectedType = TypeAgentCombobox.SelectedItem.ToString();
+
+            if (selectedType == "Все типы")
             {
-                LoadAgents();
+                agentsList = new List<AgentPresenter>(allAgentsList);
             }
             else
             {
+                using var context = new User1Context();
                 var selectedTypeId = context.Agenttypes
                     .Where(at => at.Title == selectedType)
                     .Select(at => at.Id)
                     .FirstOrDefault();
 
-                agentsList = agentsList
+                agentsList = allAgentsList
                     .Where(x => x.Agenttypeid == selectedTypeId)
                     .ToList();
-
-                currentPage = 1;
-                ApplyPagination();
             }
+
+            currentPage = 1;
+            ApplyPagination();
+        }
+
+        private void ResetFilters_Click(object sender, RoutedEventArgs e)
+        {
+            // Сброс фильтров и сортировки
+            SearchBox.Text = string.Empty;
+            TypeAgentCombobox.SelectedIndex = 0;
+            NameComboBox.SelectedIndex = -1;
+            PriorityCombobox.SelectedIndex = -1;
+            SaleCombobox.SelectedIndex = -1;
+
+            // Восстановить полный список и обновить
+            agentsList = new List<AgentPresenter>(allAgentsList);
+            currentPage = 1;
+            ApplyPagination();
         }
 
         private void SortName_SelectedChanged(object sender, SelectionChangedEventArgs e)
@@ -210,7 +226,7 @@ namespace demofinish
             using var context = new User1Context();
             
 
-            agentsList = context.Agents
+            allAgentsList = context.Agents
                 .Include(a => a.Agenttype)
                 .Include(a => a.Productsales)
                 .ThenInclude(ps => ps.Product)
@@ -219,7 +235,7 @@ namespace demofinish
                 {
                     decimal totalSales = agent.Productsales?.Sum(ps => 
                         ps.Productcount * (ps.Product?.Mincostforagent ?? 0)) ?? 0;
-                
+    
                     return new AgentPresenter
                     {
                         Id = agent.Id,
@@ -239,6 +255,9 @@ namespace demofinish
                     };
                 })
                 .ToList();
+
+            agentsList = new List<AgentPresenter>(allAgentsList);
+
             
             
             

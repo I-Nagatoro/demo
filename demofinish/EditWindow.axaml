@@ -5,42 +5,51 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="demofinish.EditWindow"
         x:CompileBindings="False"
-        Title="EditWindow">
-    
-        <DockPanel >
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5">
-                        <TextBlock Text="Наименование:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="NameBox" Width="200" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Приоритет:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="PriorityBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="Имя директора:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="BossNameBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="ИНН:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="InnBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="КПП:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="KppBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="Телефон:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="PhoneBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="Email:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="EmailBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="Адрес:" Margin="5" VerticalAlignment="Center"/>
-                        <TextBox x:Name="AdressBox" Width="200" VerticalAlignment="Center" Margin="5" />
-                        <TextBlock Text="Тип агента:" Margin="5" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="AgentTypeBox">
-                                <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                                <TextBlock Text="{Binding Title}" />
-                                        </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                        </ComboBox>
+        Title="Редактировать агента">
+    <DockPanel LastChildFill="True" Margin="10">
+        <!-- Поля ввода -->
+        <StackPanel DockPanel.Dock="Top" Spacing="8">
+            <TextBlock Text="Наименование*"/>
+            <TextBox x:Name="NameBox" />
 
-                </StackPanel>
-                <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Content="Готово" Margin="5" Click="EditAgent_Button"/>
-                        <Button Content="Назад" Click="BackButton" Margin="5"/>
+            <TextBlock Text="Приоритет*"/>
+            <TextBox x:Name="PriorityBox" />
 
-                </StackPanel>
-                
-        </DockPanel>
-        
+            <TextBlock Text="Имя директора*"/>
+            <TextBox x:Name="BossNameBox" />
+
+            <TextBlock Text="ИНН (10 цифр)*"/>
+            <TextBox x:Name="InnBox" />
+
+            <TextBlock Text="КПП (9 цифр)*"/>
+            <TextBox x:Name="KppBox" />
+
+            <TextBlock Text="Телефон*"/>
+            <TextBox x:Name="PhoneBox" />
+
+            <TextBlock Text="Email*"/>
+            <TextBox x:Name="EmailBox" />
+
+            <TextBlock Text="Адрес*"/>
+            <TextBox x:Name="AdressBox" />
+
+            <TextBlock Text="Тип агента*"/>
+            <ComboBox x:Name="AgentTypeBox">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- Место для сообщений об ошибках -->
+            <TextBlock x:Name="ErrorTextBlock" Foreground="Red" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <!-- Кнопки -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+            <Button Content="Сохранить" Click="EditAgent_Button" />
+            <Button Content="Назад" Click="BackButton" />
+        </StackPanel>
+    </DockPanel>
 </Window>

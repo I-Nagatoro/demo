@@ -101,6 +101,18 @@
           }
         }
       },
+      "Avalonia.AvaloniaEdit/0.10.0": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "0.10.0-preview1"
+        },
+        "compile": {
+          "lib/netstandard2.0/AvaloniaEdit.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AvaloniaEdit.dll": {}
+        }
+      },
       "Avalonia.BuildServices/0.0.29": {
         "type": "package",
         "build": {
@@ -446,6 +458,54 @@
           "lib/net6.0/Humanizer.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Markdown.Avalonia/0.10.10": {
+        "type": "package",
+        "dependencies": {
+          "Markdown.Avalonia.SyntaxHigh": "0.10.10",
+          "Markdown.Avalonia.Tight": "0.10.10"
+        }
+      },
+      "Markdown.Avalonia.SyntaxHigh/0.10.10": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "0.10.0",
+          "Avalonia.AvaloniaEdit": "0.10.0",
+          "System.Collections.Immutable": "1.6.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/Markdown.Avalonia.SyntaxHigh.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/Markdown.Avalonia.SyntaxHigh.dll": {}
+        }
+      },
+      "Markdown.Avalonia.Tight/0.10.10": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "0.10.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/ColorTextBlock.Avalonia.dll": {},
+          "lib/netcoreapp2.0/Markdown.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/ColorTextBlock.Avalonia.dll": {},
+          "lib/netcoreapp2.0/Markdown.Avalonia.dll": {}
+        }
+      },
+      "MessageBox.Avalonia-mainthread/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "0.10.12",
+          "Markdown.Avalonia": "0.10.10"
+        },
+        "compile": {
+          "lib/netstandard2.0/MessageBox.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MessageBox.Avalonia.dll": {}
         }
       },
       "MicroCom.Runtime/0.11.0": {
@@ -1150,7 +1210,7 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/System.Collections.Immutable.dll": {
             "related": ".xml"
           }
         },
@@ -1305,7 +1365,7 @@
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/_._": {
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
         },
@@ -1557,6 +1617,18 @@
         "runtimes/win-arm64/native/av_libglesv2.dll",
         "runtimes/win-x64/native/av_libglesv2.dll",
         "runtimes/win-x86/native/av_libglesv2.dll"
+      ]
+    },
+    "Avalonia.AvaloniaEdit/0.10.0": {
+      "sha512": "ugsyCTgf+3kgKXPwnc61xy8xzTlX8zW0nTU0qXdBd5oTBJAy+QATwzcJmpLI4MROwxojWTBeBTDd78rUl6M6Hw==",
+      "type": "package",
+      "path": "avalonia.avaloniaedit/0.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "avalonia.avaloniaedit.0.10.0.nupkg.sha512",
+        "avalonia.avaloniaedit.nuspec",
+        "lib/netstandard2.0/AvaloniaEdit.dll"
       ]
     },
     "Avalonia.BuildServices/0.0.29": {
@@ -2001,6 +2073,60 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "Markdown.Avalonia/0.10.10": {
+      "sha512": "ve6GRx3fLDlCKfS+KS/SFMeht1LP5HASiOAOx7QpJKvQeif9TWkZBwUnbVnCTUJ5c2JdocDEbBPV6j4oW0szjw==",
+      "type": "package",
+      "path": "markdown.avalonia/0.10.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "markdown.avalonia.0.10.10.nupkg.sha512",
+        "markdown.avalonia.nuspec"
+      ]
+    },
+    "Markdown.Avalonia.SyntaxHigh/0.10.10": {
+      "sha512": "rVDxLHTzhwX3UwRnuiK2soitsHL+/XFLO98fiPBLDRUPEHGl99xo9A2JB8xwy/EfIrmWffMbW6K6pb9DIlmSjg==",
+      "type": "package",
+      "path": "markdown.avalonia.syntaxhigh/0.10.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Markdown.Avalonia.SyntaxHigh.dll",
+        "lib/netcoreapp2.0/Markdown.Avalonia.SyntaxHigh.dll",
+        "lib/netstandard2.0/Markdown.Avalonia.SyntaxHigh.dll",
+        "markdown.avalonia.syntaxhigh.0.10.10.nupkg.sha512",
+        "markdown.avalonia.syntaxhigh.nuspec"
+      ]
+    },
+    "Markdown.Avalonia.Tight/0.10.10": {
+      "sha512": "BOm4vJBoon38H/yo7ufN3ruYwMlGD5mzQvht9J2TYf+ck9Skcy495ZTXvxox+b9jhd6B7o96Hk51vm5QEYu/ug==",
+      "type": "package",
+      "path": "markdown.avalonia.tight/0.10.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/ColorTextBlock.Avalonia.dll",
+        "lib/net461/Markdown.Avalonia.dll",
+        "lib/netcoreapp2.0/ColorTextBlock.Avalonia.dll",
+        "lib/netcoreapp2.0/Markdown.Avalonia.dll",
+        "lib/netstandard2.0/ColorTextBlock.Avalonia.dll",
+        "lib/netstandard2.0/Markdown.Avalonia.dll",
+        "markdown.avalonia.tight.0.10.10.nupkg.sha512",
+        "markdown.avalonia.tight.nuspec"
+      ]
+    },
+    "MessageBox.Avalonia-mainthread/2.0.1": {
+      "sha512": "ahmQPZ77zShEYWTtd2ndUA6UGNGAhJ5YdGS4LqMgK4sdXIAVY0QCQR+VFYIpoNsSLjMNsQbdK06EfxQJY0UxSg==",
+      "type": "package",
+      "path": "messagebox.avalonia-mainthread/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/MessageBox.Avalonia.dll",
+        "messagebox.avalonia-mainthread.2.0.1.nupkg.sha512",
+        "messagebox.avalonia-mainthread.nuspec"
       ]
     },
     "MicroCom.Runtime/0.11.0": {
@@ -3478,29 +3604,30 @@
       "Avalonia.Diagnostics >= 11.2.1",
       "Avalonia.Fonts.Inter >= 11.2.1",
       "Avalonia.Themes.Fluent >= 11.2.1",
+      "MessageBox.Avalonia-mainthread >= 2.0.1",
       "Microsoft.EntityFrameworkCore >= 8.0.10",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.10",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.10"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sokol\\.nuget\\packages\\": {},
+    "C:\\Users\\prdb\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sokol\\RiderProjects\\demka\\demofinish\\demofinish.csproj",
+      "projectUniqueName": "C:\\Users\\prdb\\RiderProjects\\demo\\demofinish\\demofinish.csproj",
       "projectName": "demofinish",
-      "projectPath": "C:\\Users\\sokol\\RiderProjects\\demka\\demofinish\\demofinish.csproj",
-      "packagesPath": "C:\\Users\\sokol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sokol\\RiderProjects\\demka\\demofinish\\obj\\",
+      "projectPath": "C:\\Users\\prdb\\RiderProjects\\demo\\demofinish\\demofinish.csproj",
+      "packagesPath": "C:\\Users\\prdb\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\prdb\\RiderProjects\\demo\\demofinish\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\sokol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\prdb\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3553,6 +3680,10 @@
             "target": "Package",
             "version": "[11.2.1, )"
           },
+          "MessageBox.Avalonia-mainthread": {
+            "target": "Package",
+            "version": "[2.0.1, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.10, )"
@@ -3584,7 +3715,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

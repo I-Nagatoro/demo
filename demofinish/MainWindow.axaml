@@ -48,6 +48,7 @@
                 <ComboBoxItem>по убыванию</ComboBoxItem>
                 <ComboBoxItem>по возрастанию</ComboBoxItem>
             </ComboBox>
+                        <Button Content="Сброс фильтров" Click="ResetFilters_Click" />
                     </StackPanel>
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">

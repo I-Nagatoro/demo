@@ -1,92 +1,74 @@
-using System;
-using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
+using System.Linq;
 using demofinish.Models;
 
-namespace demofinish;
-
-public partial class AddAgent_Window : Window
+namespace demofinish
 {
-    public AddAgent_Window()
+    public partial class AddAgent_Window : Window
     {
-        /*InitializeComponent();
-        LoadAgentTypes();*/
-    }
+        public AddAgent_Window()
+        {
+            InitializeComponent();
+            LoadAgentTypes();
+        }
 
-    private void LoadAgentTypes()
-    {
-        try
+        private void LoadAgentTypes()
         {
             using var context = new User1Context();
             var agentTypes = context.Agenttypes.ToList();
             TypeAgentCombobox.ItemsSource = agentTypes;
-            
             if (agentTypes.Any())
                 TypeAgentCombobox.SelectedIndex = 0;
         }
-        catch
+
+        private void Add_Agent(object? sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-    }
+            // Сброс предыдущих ошибок
+            ErrorTextBlock.Text = string.Empty;
 
-    private void Add_Agent(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            using var context = new User1Context();
-            
-            
-            if (TypeAgentCombobox.SelectedItem is not Agenttype selectedType)
-                return;
-
-            
-            int.TryParse(PrioritryBox.Text, out int priority);
-
-            var newAgent = new Agent()
+            // Валидация полей
+            if (string.IsNullOrWhiteSpace(NameBox.Text) ||
+                TypeAgentCombobox.SelectedItem is not Agenttype selType ||
+                !int.TryParse(PriorityBox.Text, out int priority) ||
+                string.IsNullOrWhiteSpace(AddressBox.Text) ||
+                InnBox.Text.Length != 10 || !InnBox.Text.All(char.IsDigit) ||
+                KppBox.Text.Length != 9 || !KppBox.Text.All(char.IsDigit) ||
+                string.IsNullOrWhiteSpace(DirectorBox.Text) ||
+                string.IsNullOrWhiteSpace(PhoneBox.Text) ||
+                !EmailBox.Text.Contains('@') || !EmailBox.Text.Contains('.'))
             {
-                Title = NameBox.Text,
-                Inn = InnBox.Text,
-                Agenttypeid = selectedType.Id,
-                Kpp = KppBox.Text,
-                Email = EmailBox.Text,
-                Phone = PhoneBox.Text,
-                Address = AdressBox.Text,
+                ErrorTextBlock.Text = "Проверьте правильность заполнения всех полей";
+                return;
+            }
+
+            // Создание нового агента
+            var newAgent = new Agent
+            {
+                Title = NameBox.Text.Trim(),
+                Agenttypeid = selType.Id,
                 Priority = priority,
-                Directorname = DirectorBox.Text,
+                Address = AddressBox.Text.Trim(),
+                Inn = InnBox.Text.Trim(),
+                Kpp = KppBox.Text.Trim(),
+                Directorname = DirectorBox.Text.Trim(),
+                Phone = PhoneBox.Text.Trim(),
+                Email = EmailBox.Text.Trim(),
                 Logo = "picture.png"
             };
-            
-            context.Agents.Add(newAgent);
-            context.SaveChanges();
 
-            
-            ClearFields();
-            this.Close();
+            // Сохранение в базу
+            using var ctx = new User1Context();
+            ctx.Agents.Add(newAgent);
+            ctx.SaveChanges();
+
+            // Закрыть окно
+            Close();
         }
-        catch
+
+        private void GoBack_Button(object? sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
-    }
-
-    private void ClearFields()
-    {
-        NameBox.Text = "";
-        InnBox.Text = "";
-        KppBox.Text = "";
-        EmailBox.Text = "";
-        PhoneBox.Text = "";
-        AdressBox.Text = "";
-        PrioritryBox.Text = "";
-        DirectorBox.Text = "";
-    }
-
-    private void GoBack_Button(object? sender, RoutedEventArgs e)
-    {
-        this.Close();
     }
 }
